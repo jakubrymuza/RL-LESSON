@@ -12,7 +12,7 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "args": ["--env", "MiniGrid-LavaCrossingS9N1-v0", "--rnd_scale", "0", "--algorithm", "dqn", "--seed", "42" ,"--log_wandb", "True"]
+            "args": ["--env", "ALE/Enduro-ram-v5", "--rnd_scale", "0", "--algorithm", "dqn", "--seed", "42" ,"--log_wandb", "True"]
         }
     ]
 }
