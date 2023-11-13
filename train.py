@@ -7,6 +7,8 @@ import torch, gc
 from rl_algorithm.drqn.agent import DRQNAgent
 from rl_algorithm.dqn.agent import DQNAgent
 
+from gym.wrappers import atari_preprocessing
+
 gc.collect()
 torch.cuda.empty_cache()
 
@@ -48,6 +50,10 @@ eval_env = utils.make_env(args.env, seed)
 return_per_frame_, test_return_per_frame_ = [], []
 num_frames = 0
 episode = 0
+
+# wrap = AtariPreprocessing()
+
+# env = wrap(env)
 
 # Load observations preprocessor
 obs_space, preprocess_obss = utils.get_obss_preprocessor(

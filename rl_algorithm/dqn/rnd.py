@@ -68,7 +68,7 @@ class RND(BaseModel):
         self.device = device
 
     def get_reward(self, obs):
-        x = obs.image.transpose(1, 3).transpose(2, 3)
+        x = obs.image#.transpose(1, 3).transpose(2, 3)
         x = x.reshape(x.shape[0], -1)
         x = self.image_conv(x)
         y_true = self.target(x)

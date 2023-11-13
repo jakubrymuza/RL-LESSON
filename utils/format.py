@@ -5,16 +5,16 @@ from .other import DictList
 
 
 def get_obss_preprocessor(obs_space):
-    obs_space = {"image": obs_space.spaces["image"].shape, "text": 100}
+    obs_space = {"image": obs_space.high.shape, "text": 99999}
     vocab = Vocabulary(obs_space["text"])
 
     def preprocess_obss(obss, device=None):
         return DictList({
             "image": preprocess_images(
-                [obs["image"] for obs in obss], device=device
+                [obs for obs in obss], device=device
             ),
             "text": preprocess_texts(
-                [obs["mission"] for obs in obss], vocab, device=device
+                [obs for obs in obss], vocab, device=device
             )
         })
     preprocess_obss.vocab = vocab
@@ -32,7 +32,8 @@ def preprocess_texts(texts, vocab, device=None):
     max_text_len = 0
 
     for text in texts:
-        tokens = re.findall("([a-z]+)", text.lower())
+        #tokens = re.findall("([a-z]+)", text.lower())
+        tokens = text
         var_indexed_text = numpy.array([vocab[token] for token in tokens])
         var_indexed_texts.append(var_indexed_text)
         max_text_len = max(len(var_indexed_text), max_text_len)
