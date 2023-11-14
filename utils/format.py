@@ -5,17 +5,18 @@ from .other import DictList
 
 
 def get_obss_preprocessor(obs_space):
-    obs_space = {"image": obs_space.high.shape, "text": 99999}
+    obs_space = {"image": obs_space.shape, "text": 99999}
     vocab = Vocabulary(obs_space["text"])
 
     def preprocess_obss(obss, device=None):
         return DictList({
             "image": preprocess_images(
                 [obs for obs in obss], device=device
-            ),
-            "text": preprocess_texts(
-                [obs for obs in obss], vocab, device=device
             )
+            # ,
+            # "text": preprocess_texts(
+            #     [obs for obs in obss], vocab, device=device
+            # )
         })
     preprocess_obss.vocab = vocab
 

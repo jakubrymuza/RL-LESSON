@@ -6,9 +6,9 @@ class BaseModel(nn.Module):
         super().__init__()
 
         n = obs_space["image"][0]
-        # m = obs_space["image"][1]
-        # z = obs_space["image"][2]
-        shape = n#*m*z
+        m = obs_space["image"][1]
+        #z = obs_space["image"][2]
+        shape = n*m#*z
         self.image_conv = nn.Sequential(
             nn.Linear(shape, shape//2),
             nn.ReLU(),

@@ -19,7 +19,8 @@ parser.add_argument("--model", default=None, help="name of the model (default: {
 parser.add_argument("--seed", type=int, default=-1, help="specific seed")
 parser.add_argument("--frames", type=int, default=2*10**6, help="number of frames of training (default: 2e6)")
 parser.add_argument("--max-memory", type=int, default=500000, help="Maximum experiences stored (default: 500000)")
-parser.add_argument("--lr", type=float, default=0.0001, help="learning rate (default: 0.0001)")
+parser.add_argument("--lr", type=float, default=0.01#0.0001
+                    , help="learning rate (default: 0.0001)")
 parser.add_argument("--algorithm", type=str, default="dqn", help="dqn, drqn")
 parser.add_argument("--rnd_scale", type=float, default=None)
 parser.add_argument("--softmax_ww", type=int, default=50)

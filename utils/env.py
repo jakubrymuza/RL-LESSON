@@ -2,10 +2,17 @@ import gym
 import gym_minigrid
 from gym_minigrid.wrappers import *
 from multiprocessing import Process, Pipe
+from gym.wrappers import AtariPreprocessing
+
 
 def make_env(env_key, seed=None):
     # create env
     env = gym.make(env_key)
+
+    env = AtariPreprocessing(env, frame_skip=1, 
+                             screen_size=84, terminal_on_life_loss=True,scale_obs=True,grayscale_newaxis=True)
+   
+    
     env.reset(seed=seed)
     return env
 
