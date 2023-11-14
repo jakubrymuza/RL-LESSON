@@ -188,19 +188,21 @@ class DQNAgent:
         log_loss = []
         log_reward = []
         episode_step = 0
-        # fig, ax = plt.subplots()
+        fig, ax = plt.subplots()
         while not done and episode_step < self.max_episode_length:
             episode_step += 1
             preprocessed_obs = self.preprocess_obs([obs], device=self.device)
 
             action, _ = utils.action.select_greedy_action(self, preprocessed_obs, None)
             new_obs, reward, done, _, _ = self.eval_env.step(action)
-            # ax.clear()
-            # ax.imshow(new_obs, cmap='gray')  # Assuming the observation is a grayscale image
-            # plt.pause(0.1)
+            if reward>0:
+                dfasdf=3
+            ax.clear()
+            ax.imshow(new_obs, cmap='gray')  # Assuming the observation is a grayscale image
+            plt.pause(0.001)
             log_reward.append(reward)
             obs = new_obs
-
+        plt.close(fig)
         logs = {"num_frames": None, "rewards": log_reward, "loss": log_loss}
         self.logs = logs
         return logs
