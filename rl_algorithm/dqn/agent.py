@@ -12,6 +12,8 @@ from rl_algorithm.dqn.config import batch_size
 from rl_algorithm.common.option_model import OptionQ
 
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+from IPython.display import display,HTML
 
 class DQNAgent:
     """
@@ -124,10 +126,10 @@ class DQNAgent:
             if num_frames % self.log_interval == 0 and "rewards" in self.logs:
                 utils.log.set_log(self, num_frames, start_time, episode, return_per_frame_, test_return_per_frame_,
                                     current_option, termination.item(), termination_error.item(), sigmoid_termonations)
-
+            self.episode_step = episode_step
             # test model
             self.test(num_frames, test_return_per_frame_)
-
+            
             obs = new_obs
             episode_step += 1
             num_frames += 1
@@ -175,7 +177,7 @@ class DQNAgent:
         if num_frames % self.test_interval == 0:
             print(f"test start @ num frames: {num_frames}")
             test_return = []
-            for _ in range(5):
+            for _ in range(1):#5):                
                 test_logs = self.test_collect_experiences()
                 test_return_per_episode = utils.synthesize(test_logs["rewards"])
                 test_return.append(list(test_return_per_episode.values())[2])
@@ -188,21 +190,26 @@ class DQNAgent:
         log_loss = []
         log_reward = []
         episode_step = 0
-        fig, ax = plt.subplots()
+        # fig, ax = plt.subplots()
+        # ax.axis('off')
+        # ims=[]
         while not done and episode_step < self.max_episode_length:
             episode_step += 1
             preprocessed_obs = self.preprocess_obs([obs], device=self.device)
 
             action, _ = utils.action.select_greedy_action(self, preprocessed_obs, None)
-            new_obs, reward, done, _, _ = self.eval_env.step(action)
-            if reward>0:
-                dfasdf=3
-            ax.clear()
-            ax.imshow(new_obs, cmap='gray')  # Assuming the observation is a grayscale image
-            plt.pause(0.001)
+            new_obs, reward, done, x, description = self.eval_env.step(action)
+            # image = ax.imshow(new_obs, cmap='gray', vmin=0, vmax=1,animated=True)  # Assuming the observation is a grayscale image
+            # ims.append([image])
             log_reward.append(reward)
             obs = new_obs
-        plt.close(fig)
+
+
+        # ani = animation.ArtistAnimation(fig, ims, interval=500, blit=True,repeat_delay=1000)
+        
+        # ani.save("Learning after "+str(self.episode_step)+" simulations.gif", writer='pillow', fps=5)
+
+        # plt.close(fig)
         logs = {"num_frames": None, "rewards": log_reward, "loss": log_loss}
         self.logs = logs
         return logs
