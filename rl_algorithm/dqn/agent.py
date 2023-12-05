@@ -186,30 +186,34 @@ class DQNAgent:
     def test_collect_experiences(self):
         obs = self.eval_env.reset()[0]
         done = False
-
+        create_gif=False
         log_loss = []
         log_reward = []
         episode_step = 0
-        # fig, ax = plt.subplots()
-        # ax.axis('off')
-        # ims=[]
+        
+        if create_gif:
+            fig, ax = plt.subplots()
+            ax.axis('off')
+            ims=[]
         while not done and episode_step < self.max_episode_length:
             episode_step += 1
             preprocessed_obs = self.preprocess_obs([obs], device=self.device)
 
             action, _ = utils.action.select_greedy_action(self, preprocessed_obs, None)
             new_obs, reward, done, x, description = self.eval_env.step(action)
-            # image = ax.imshow(new_obs, cmap='gray', vmin=0, vmax=1,animated=True)  # Assuming the observation is a grayscale image
-            # ims.append([image])
+            if create_gif:
+                image = ax.imshow(new_obs, cmap='gray', vmin=0, vmax=1,animated=True)  # Assuming the observation is a grayscale image
+                ims.append([image])
             log_reward.append(reward)
             obs = new_obs
 
 
-        # ani = animation.ArtistAnimation(fig, ims, interval=500, blit=True,repeat_delay=1000)
         
-        # ani.save("Learning after "+str(self.episode_step)+" simulations.gif", writer='pillow', fps=5)
+        if create_gif:
+            ani = animation.ArtistAnimation(fig, ims, interval=500, blit=True,repeat_delay=1000)
+            ani.save("Learning after "+str(self.episode_step)+" simulations.gif", writer='pillow', fps=5)
 
-        # plt.close(fig)
+            plt.close(fig)
         logs = {"num_frames": None, "rewards": log_reward, "loss": log_loss}
         self.logs = logs
         return logs

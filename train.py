@@ -17,10 +17,9 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--env", required=True, help="name of the environment to train on (REQUIRED)")
 parser.add_argument("--model", default=None, help="name of the model (default: {ENV}_{ALGO}_{TIME})")
 parser.add_argument("--seed", type=int, default=-1, help="specific seed")
-parser.add_argument("--frames", type=int, default=2*10**6, help="number of frames of training (default: 2e6)")
+parser.add_argument("--frames", type=int, default=5*10**6, help="number of frames of training (default: 2e6)")
 parser.add_argument("--max-memory", type=int, default=500000, help="Maximum experiences stored (default: 500000)")
-parser.add_argument("--lr", type=float, default=0.01#0.0001
-                    , help="learning rate (default: 0.0001)")
+parser.add_argument("--lr", type=float, default=0.0001, help="learning rate (default: 0.0001)")
 parser.add_argument("--algorithm", type=str, default="dqn", help="dqn, drqn")
 parser.add_argument("--rnd_scale", type=float, default=None)
 parser.add_argument("--softmax_ww", type=int, default=50)
@@ -39,6 +38,7 @@ default_model_name = "{}_{}_{}".format(
 model_name = args.model or default_model_name
 model_dir = utils.get_model_dir(model_name)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(device)
 start_time = time.time()
 
 return_per_frame, test_return_per_frame = [], []
@@ -98,6 +98,8 @@ while num_frames < args.frames:
     num_frames = logs["num_frames"]
 
     episode += 1
+    if device.type =='cuda':
+        torch.cuda.empty_cache()
 
 return_per_frame.append(return_per_frame_)
 test_return_per_frame.append(test_return_per_frame_)
