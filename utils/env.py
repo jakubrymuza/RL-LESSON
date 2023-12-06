@@ -7,14 +7,13 @@ from gym.wrappers import AtariPreprocessing,TransformReward
 
 def make_env(env_key, seed=None):
     # create env
-    env = gym.make(env_key, full_action_space=False)
+    env = gym.make(env_key, full_action_space=False, difficulty=3, frameskip=1)
 
-    env = AtariPreprocessing(env, frame_skip=1, 
-                             screen_size=84, terminal_on_life_loss=True,scale_obs=True,grayscale_newaxis=True)
+    env = AtariPreprocessing(env, screen_size=84, terminal_on_life_loss=True,scale_obs=True,grayscale_newaxis=True)
     
     env = TransformReward(env, lambda r: r / 400)
    
-    env.action_space.n=6    
+    env.action_space.n=7    
     
     env.reset(seed=seed)
     return env

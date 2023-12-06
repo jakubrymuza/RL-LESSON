@@ -14,7 +14,7 @@ def get_max_episode_length(env):
     elif "PutNear-6x6" in env:
         return 30
     else:
-        return 100
+        return 400
 
 def init(self, env, preprocess_obs, args, train_interval=4):
     self.device = device
