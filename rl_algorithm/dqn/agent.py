@@ -178,12 +178,12 @@ class DQNAgent:
             print(f"test start @ num frames: {num_frames}")
             test_return = []
             for _ in range(1):#5):                
-                test_logs = self.test_collect_experiences()
+                test_logs = self.test_collect_experiences(num_frames)
                 test_return_per_episode = utils.synthesize(test_logs["rewards"])
                 test_return.append(list(test_return_per_episode.values())[2])
             test_return_per_frame_.append(np.mean(test_return))
 
-    def test_collect_experiences(self):
+    def test_collect_experiences(self,num_frames):
         obs = self.eval_env.reset()[0]
         done = False
         create_gif=False
@@ -211,7 +211,7 @@ class DQNAgent:
         
         if create_gif:
             ani = animation.ArtistAnimation(fig, ims, interval=500, blit=True,repeat_delay=1000)
-            ani.save("Learning after "+str(self.episode_step)+" simulations.gif", writer='pillow', fps=5)
+            ani.save("Learning after "+str(num_frames)+" frames.gif", writer='pillow', fps=5)
 
             plt.close(fig)
         logs = {"num_frames": None, "rewards": log_reward, "loss": log_loss}
