@@ -7,6 +7,8 @@ from .other import DictList
 def get_obss_preprocessor(obs_space):
     obs_space = {"image": obs_space.shape, "text": 99999}
     vocab = Vocabulary(obs_space["text"])
+    
+    # TODO
 
     def preprocess_obss(obss, device=None):
         return DictList({

@@ -4,7 +4,6 @@ import argparse
 import datetime
 import torch, gc
 
-from rl_algorithm.drqn.agent import DRQNAgent
 from rl_algorithm.dqn.agent import DQNAgent
 
 from gym.wrappers import atari_preprocessing
@@ -52,10 +51,6 @@ return_per_frame_, test_return_per_frame_ = [], []
 num_frames = 0
 episode = 0
 
-# wrap = AtariPreprocessing()
-
-# env = wrap(env)
-
 # Load observations preprocessor
 obs_space, preprocess_obss = utils.get_obss_preprocessor(
     env.observation_space
@@ -63,18 +58,7 @@ obs_space, preprocess_obss = utils.get_obss_preprocessor(
 
 exploration_options = ["epsilon-random", "epsilon-z", "epsilon-rnd", "epsilon"]
 
-if args.algorithm == "dqn":
-    agent = DQNAgent(
-        env=env,
-        eval_env=eval_env,
-        exploration_options=exploration_options,
-        device=device,
-        args=args,
-        preprocess_obs=preprocess_obss,
-        model_dir=model_dir,
-    )
-if args.algorithm == "drqn":
-    agent = DRQNAgent(
+agent = DQNAgent(
         env=env,
         eval_env=eval_env,
         exploration_options=exploration_options,

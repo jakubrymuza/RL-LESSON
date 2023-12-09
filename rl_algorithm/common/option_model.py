@@ -54,14 +54,10 @@ class OptionQ(BaseModel):
         dones = collected_experience["dones"]
         indices = np.arange(len(collected_experience["actions"]))
 
-        if algorithm == 'dqn':
-            q_target= target_net(new_obs)
-            q_policy = online_net(obs)
-        if algorithm == 'drqn':
-            hidden_state_target = target_net.init_hidden_state(training=True)
-            q_target, _ = target_net(new_obs, hidden_state_target)
-            hidden_state = online_net.init_hidden_state(training=True)
-            q_policy, _ = online_net(obs, hidden_state)
+        # dqn
+        q_target= target_net(new_obs)
+        q_policy = online_net(obs)
+
 
         max_actions = q_target.max(dim=1)[0]
         Q_target = torch.tensor(rewards, device=device) + discount * max_actions * torch.tensor(dones, device=device)
