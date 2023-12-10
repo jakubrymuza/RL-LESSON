@@ -2,6 +2,8 @@ import gym
 from gym_minigrid.wrappers import *
 from multiprocessing import Process, Pipe
 from gym.wrappers import AtariPreprocessing, TransformReward, RescaleAction
+from gym import ObservationWrapper
+from gym.spaces import Box
 
 
 def make_env(env_key, seed=None):
@@ -9,6 +11,8 @@ def make_env(env_key, seed=None):
     env = gym.make(env_key, full_action_space=False, difficulty=3, frameskip=1)
 
     env = AtariPreprocessing(env, screen_size=84, terminal_on_life_loss=True, scale_obs=True, grayscale_newaxis=True)
+    
+    env = LimitSpace(env)
     
     env = TransformReward(env, lambda r: r / 400)
    
@@ -33,7 +37,14 @@ def worker(conn, env):
             conn.send(obs)
         else:
             raise NotImplementedError
+        
+class LimitSpace(ObservationWrapper):
+    def __init__(self, env):
+        super().__init__(env)
+        self.observation_space = Box(shape=(66, 66), low=0, high=1) # self.observation_space = Box(shape=(64, 64), low=0, high=1)
 
+    def observation(self, obs):
+        return obs[4:70, 9:75, :] # obs[5:69, 10:74, :]
 class ParallelEnv(gym.Env):
     """
     A concurrent execution of environments in multiple processes.
