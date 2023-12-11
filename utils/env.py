@@ -3,7 +3,7 @@ from gym_minigrid.wrappers import *
 from multiprocessing import Process, Pipe
 from gym.wrappers import AtariPreprocessing, TransformReward, RescaleAction
 from gym import ObservationWrapper
-from gym.spaces import Box
+from gym.spaces import Box 
 
 
 def make_env(env_key, seed=None):
@@ -15,6 +15,9 @@ def make_env(env_key, seed=None):
     env = LimitSpace(env)
     
     env = TransformReward(env, lambda r: r / 400)
+    
+    env = ActionWrapper(env)   
+    
    
     # ograniczenie akcji
     # env = RescaleAction(env, min_action=1, max_action=6)
@@ -37,7 +40,13 @@ def worker(conn, env):
             conn.send(obs)
         else:
             raise NotImplementedError
-        
+class ActionWrapper(gym.ActionWrapper):
+    def __init__(self, env):
+        super().__init__(env)
+    
+    def action(self, act):
+        new_act=act+1
+        return new_act       
 class LimitSpace(ObservationWrapper):
     def __init__(self, env):
         super().__init__(env)
