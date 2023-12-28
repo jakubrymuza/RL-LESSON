@@ -37,8 +37,9 @@ class DQN(BaseModel):
 
     def forward(self, obs):
         x = obs.image.transpose(1, 3).transpose(2, 3)
-        x = x.reshape(x.shape[0], -1)
-        x = self.image_conv(x)
+        #x = x.reshape(x.shape[0], -1)
+        x = self.proc(x)
+        #x = self.image_conv(x)
 
         if self.is_use_mission:
             embed_text = self._get_embed_text(obs.text)

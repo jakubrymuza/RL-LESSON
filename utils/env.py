@@ -12,7 +12,7 @@ def make_env(env_key, seed=None):
 
     env = AtariPreprocessing(env, screen_size=84, terminal_on_life_loss=True, scale_obs=True, grayscale_newaxis=True)
     
-    env = LimitSpace(env)
+    #env = LimitSpace(env)
     
     env = TransformReward(env, lambda r: r / 400)
     

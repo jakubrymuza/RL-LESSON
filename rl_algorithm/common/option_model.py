@@ -37,8 +37,9 @@ class OptionQ(BaseModel):
 
     def preprocess_obs(self, obs):
         x = obs.image.transpose(1, 3).transpose(2, 3)
-        x = x.reshape(x.shape[0], -1)
-        return self.image_conv(x)
+        #x = x.reshape(x.shape[0], -1)
+        return self.proc(x)
+        #return self.image_conv(x)
 
     def forward(self, obs):
         processed_obs = self.preprocess_obs(obs)
