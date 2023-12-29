@@ -12,7 +12,7 @@ def make_env(env_key, seed=None):
 
     env = AtariPreprocessing(env, screen_size=84, terminal_on_life_loss=True, scale_obs=True, grayscale_newaxis=True)
     
-    #env = LimitSpace(env)
+    env = LimitSpace(env)
     
     env = TransformReward(env, lambda r: r / 400)
     
@@ -50,10 +50,10 @@ class ActionWrapper(gym.ActionWrapper):
 class LimitSpace(ObservationWrapper):
     def __init__(self, env):
         super().__init__(env)
-        self.observation_space = Box(shape=(66, 66), low=0, high=1) # self.observation_space = Box(shape=(64, 64), low=0, high=1)
+        self.observation_space = Box(shape=(68, 68), low=0, high=1) # self.observation_space = Box(shape=(64, 64), low=0, high=1), shape 66 66
 
     def observation(self, obs):
-        return obs[4:70, 9:75, :] # obs[5:69, 10:74, :]
+        return obs[3:71, 8:76, :] # [4:70, 9:75, :] obs[5:69, 10:74, :]
 class ParallelEnv(gym.Env):
     """
     A concurrent execution of environments in multiple processes.
