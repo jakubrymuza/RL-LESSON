@@ -209,7 +209,7 @@ class DQNAgent:
 
 
         
-        if create_gif:
+        if create_gif and ims:
             ani = animation.ArtistAnimation(fig, ims, interval=500, blit=True,repeat_delay=1000)
             ani.save("Learning after "+str(num_frames)+" frames.gif", writer='pillow', fps=5)
 

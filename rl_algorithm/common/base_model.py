@@ -10,13 +10,13 @@ class BaseModel(nn.Module):
             nn.ReLU(),
             nn.Conv2d(16, 32, kernel_size=4, stride=2),
             nn.ReLU()
-        )
+        ).to(device)
 
         self.classifier = nn.Sequential(
             nn.Linear(32 * 7 * 7, 256),
             nn.ReLU(),
             nn.Linear(256, 64)
-        )
+        ).to(device)
         
     def proc(self, x):
         x = self.features(x)
