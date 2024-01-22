@@ -211,7 +211,7 @@ class DQNAgent:
         
         if create_gif and ims:
             ani = animation.ArtistAnimation(fig, ims, interval=500, blit=True,repeat_delay=1000)
-            ani.save("Learning after "+str(num_frames)+" frames.gif", writer='pillow', fps=5)
+            ani.save("Learning after "+str(num_frames)+" frames. Reward: " + str(np.mean(log_reward)) + ".gif", writer='pillow', fps=5)
 
             plt.close(fig)
         logs = {"num_frames": None, "rewards": log_reward, "loss": log_loss}
