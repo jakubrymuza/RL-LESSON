@@ -210,10 +210,15 @@ class DQNAgent:
 
         
         if create_gif and ims:
-            ani = animation.ArtistAnimation(fig, ims, interval=500, blit=True,repeat_delay=1000)
-            ani.save("Learning after "+str(num_frames)+" frames.gif", writer='pillow', fps=5)
+            try:
+                ani = animation.ArtistAnimation(fig, ims, interval=500, blit=True,repeat_delay=1000)
+                ani.save("Learning after "+str(num_frames)+" frames.gif", writer='pillow', fps=5)
 
-            plt.close(fig)
+                plt.close(fig)
+            except Exception as e:
+                # Code to handle any exceptions
+                print(f"An unexpected error occurred: {e}")
+                
         logs = {"num_frames": None, "rewards": log_reward, "loss": log_loss}
         self.logs = logs
         return logs

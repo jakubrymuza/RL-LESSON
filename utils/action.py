@@ -43,10 +43,10 @@ def select_action_from_option(
     # elif current_option == 1:
     #     self.type = "z"
     #     action = self.w
-    elif current_option == 2:
-        self.type = "rnd"
-        action = torch.argmax(Q_rnd).item()
-    elif current_option == 3:
+    # elif current_option == 2:
+    #     self.type = "rnd"
+    #     action = torch.argmax(Q_rnd).item()
+    elif current_option > 1:
         self.type = "e"
         action = torch.argmax(Q).item()
     return action, new_hidden_states
