@@ -186,7 +186,7 @@ class DQNAgent:
     def test_collect_experiences(self,num_frames):
         obs = self.eval_env.reset()[0]
         done = False
-        create_gif=False
+        create_gif = False
         log_loss = []
         log_reward = []
         episode_step = 0
@@ -210,9 +210,11 @@ class DQNAgent:
 
         
         if create_gif and ims:
-            try:
-                ani = animation.ArtistAnimation(fig, ims, interval=500, blit=True,repeat_delay=1000)
-                ani.save("Learning after "+str(num_frames)+" frames.gif", writer='pillow', fps=5)
+            ani = animation.ArtistAnimation(fig, ims, interval=500, blit=True,repeat_delay=1000)
+            rew = np.mean(log_reward)
+            rewi = int(rew * 1000)
+            try: 
+                ani.save("Learning after "+str(num_frames)+" frames - Reward " + str(rewi) + ".gif", writer='pillow', fps=5)
 
                 plt.close(fig)
             except Exception as e:

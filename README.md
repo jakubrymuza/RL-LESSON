@@ -1,2 +1,2 @@
 # RL-LESSON
-Reinforcement Learning in Minigrid, using LESSON method
+Reinforcement Learning in Atari, using LESSON framework
