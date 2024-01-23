@@ -182,11 +182,12 @@ class DQNAgent:
                 test_return_per_episode = utils.synthesize(test_logs["rewards"])
                 test_return.append(list(test_return_per_episode.values())[2])
             test_return_per_frame_.append(np.mean(test_return))
-
+            
+    create_gif = False
     def test_collect_experiences(self,num_frames):
         obs = self.eval_env.reset()[0]
         done = False
-        create_gif = False
+        
         log_loss = []
         log_reward = []
         episode_step = 0
