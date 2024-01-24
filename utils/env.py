@@ -16,13 +16,13 @@ def make_env(env_key, seed=None):
     
     env = TransformReward(env, lambda r: r / 400)
     
-    env = ActionWrapper(env)   
+    #env = ActionWrapper(env)   
     
    
     # ograniczenie akcji
     # env = RescaleAction(env, min_action=1, max_action=6)
-    env.action_space.n = 5    
-    env.action_space.start = 1 
+    # env.action_space.n = 5    
+    # env.action_space.start = 1 
     
     env.reset(seed=seed)
     return env
