@@ -8,7 +8,7 @@ from gym.spaces import Box
 
 def make_env(env_key, seed=None):
     # create env
-    env = gym.make(env_key, full_action_space=False, difficulty=3, frameskip=1)
+    env = gym.make(env_key, full_action_space=False, difficulty=0, frameskip=1)
 
     env = AtariPreprocessing(env, screen_size=84, terminal_on_life_loss=True, scale_obs=True, grayscale_newaxis=True)
     
