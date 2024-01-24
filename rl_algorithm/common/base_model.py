@@ -13,7 +13,7 @@ class BaseModel(nn.Module):
         ).to(device)
 
         self.classifier = nn.Sequential(
-            nn.Linear(32 * 7 * 7, 256),
+            nn.Linear(32 * 9 * 9, 256),
             nn.ReLU(),
             nn.Linear(256, 64)
         ).to(device)
