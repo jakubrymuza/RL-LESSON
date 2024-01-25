@@ -37,7 +37,7 @@ def select_action_from_option(
             Q = self.policy_network(preprocessed_obs)
             Q_rnd = self.rnd_policy_network(preprocessed_obs)
 
-    if current_option == 1:
+    if current_option == 0:
         self.type = "r"
         action = random.randrange(self.n_actions)
     elif current_option == 1:
@@ -46,7 +46,7 @@ def select_action_from_option(
     elif current_option == 2:
         self.type = "rnd"
         action = torch.argmax(Q_rnd).item()
-    elif current_option > 1:
+    elif current_option == 3:
         self.type = "e"
         action = torch.argmax(Q).item()
     return action, new_hidden_states
