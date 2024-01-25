@@ -14,7 +14,7 @@ def make_env(env_key, seed=None):
     
     #env = LimitSpace(env)
     
-    env = TransformReward(env, lambda r: r / 400)
+    #env = TransformReward(env, lambda r: r / 400)
     
     #env = ActionWrapper(env)   
     
