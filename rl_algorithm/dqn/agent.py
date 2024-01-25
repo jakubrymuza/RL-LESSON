@@ -15,6 +15,10 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from IPython.display import display,HTML
 
+        
+create_gif = False
+
+
 class DQNAgent:
     """
     The Deep Q Learning algorithm
@@ -62,6 +66,8 @@ class DQNAgent:
             args=args,
             exploration_options=exploration_options,
         )
+        
+
 
     def collect_experiences(
         self,
