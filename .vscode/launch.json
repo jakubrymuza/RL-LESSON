@@ -12,7 +12,7 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "args": ["--env", "ALE/Breakout-v5", "--softmax_ww", "100","--lr","0.00003", "--rnd_scale", "0", "--algorithm", "dqn", "--seed", "42", "--log_wandb", "True"]
+            "args": ["--env", "ALE/Alien-v5", "--softmax_ww", "100","--lr","0.00001", "--rnd_scale", "0", "--algorithm", "dqn", "--seed", "42", "--log_wandb", "True"]
         }
     ]
 }
